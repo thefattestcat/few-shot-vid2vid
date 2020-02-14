@@ -11,7 +11,7 @@ import torch
 import torch.distributed as dist
 
 def init_dist(launcher='pytorch', backend='nccl', **kwargs):
-    if dist.is_initialized():
+    if dist.is_available():
         return torch.cuda.current_device()
     # if mp.get_start_method(allow_none=True) is None:
         # mp.set_start_method('spawn')
@@ -24,7 +24,7 @@ def init_dist(launcher='pytorch', backend='nccl', **kwargs):
 
 
 def get_rank():
-    if dist.is_initialized():
+    if dist.is_available():
         rank = dist.get_rank()
     else:
         rank = 0
@@ -32,7 +32,7 @@ def get_rank():
 
 
 def get_world_size():
-    if dist.is_initialized():
+    if dist.is_available():
         world_size = dist.get_world_size()
     else:
         world_size = 1

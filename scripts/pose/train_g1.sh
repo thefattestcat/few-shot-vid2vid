@@ -7,4 +7,4 @@
 
 python train.py --name pose --dataset_mode fewshot_pose \
 --adaptive_spade --warp_ref --spade_combine --remove_face_labels --add_face_D \
---batchSize 2 --continue_train 
+--batchSize 1 --continue_train 

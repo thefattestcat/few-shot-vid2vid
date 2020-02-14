@@ -16,7 +16,7 @@ class CustomDatasetDataLoader(BaseDataLoader):
     def initialize(self, opt):
         BaseDataLoader.initialize(self, opt)
         self.dataset = data.create_dataset(opt)
-        if dist.is_initialized():
+        if dist.is_available():
             sampler = torch.utils.data.distributed.DistributedSampler(self.dataset)
         else:
             sampler = None
@@ -37,5 +37,5 @@ class CustomDatasetDataLoader(BaseDataLoader):
     def __len__(self):
         size = min(len(self.dataset), self.opt.max_dataset_size)
         ngpus = len(self.opt.gpu_ids)
-        round_to_ngpus = (size // ngpus) * ngpus
+        round_to_ngpus = ngpus #(size // ngpus) * ngpus
         return round_to_ngpus
